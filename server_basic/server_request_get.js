@@ -1,10 +1,12 @@
 var http = require('http');
-// 서버 사용을 위해 http 모듈을 http 변수에 담는다.
-var url = require('url');
-var querystring = require('querystring');
 
-var server = http.createServer(function(request, response) {
-        // 3. 콘솔화면에 로그 시작 부분을 출력
+// 1. 요청한 url을 객체로 만들기 위해 url 모듈사용
+var url = require('url');
+// 2. 요청한 url 중에 Query String 을 객체로 만들기 위해 querystring 모듈 사용
+var querystring = require('querystring'); 
+
+var server = http.createServer(function(request,response){
+    // 3. 콘솔화면에 로그 시작 부분을 출력
     console.log('--- log start ---');
     // 4. 브라우저에서 요청한 주소를 parsing 하여 객체화 후 출력
     var parsedUrl = url.parse(request.url);
@@ -16,9 +18,9 @@ var server = http.createServer(function(request, response) {
     console.log('--- log end ---');
 
     response.writeHead(200, {'Content-Type':'text/plain; charset=utf-8'});
-    response.end('var1의 값은 '+parsedQuery.var1);
-}); // http 모듈로 서버 생성
+    response.end('var1=' + parsedQuery.var1 + ', var2=' + parsedQuery.var2 + ', var3=' +parsedQuery.var3);
+});
 
-server.listen(8080, function(){ 
+server.listen(8080, function(){
     console.log('Server is running...');
-}); // 서버 실행 (8080포트)
+});
